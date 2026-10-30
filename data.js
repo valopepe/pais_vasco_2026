@@ -13,6 +13,7 @@ const placeLink = (text, query) => `<a href='${mapsSearch(query)}' target='_blan
 const webLink = (text, url) => `<a href='${url}' target='_blank' rel='noopener noreferrer' class='inline-link'>${text} ↗</a>`;
 
 const HOME_ADDRESS = "Zamakola Kalea 17, Bilbao";
+const NEARBY_LANDMARK_URL = "https://share.google/K5C6Y81O3kxkZpI5T";
 
 const TRIP_DATA = window.TRIP_DATA = {
   tripInfo: {
@@ -46,7 +47,7 @@ const TRIP_DATA = window.TRIP_DATA = {
       schedule: [
         { time: "15:00", desc: "🚗 Salida desde casa por la A-8 (Cantábrico)." },
         { time: "~19:00", desc: "🍽️ Parada para cenar en Asturias, en la zona de Llanes o Ribadesella." },
-        { time: "~22:00", desc: "🏠 Llegada a Zamakola Kalea 17. Coche al garaje y a dormir." }
+        { time: "~22:00", desc: "🏠 Llegada a Zamakola Kalea 17, al lado de " + webLink("Obar Catracho", NEARBY_LANDMARK_URL) + ". Coche al garaje y a dormir." }
       ],
       tips: [
         "El viernes por la tarde es día de mucha salida de puente: contad con 30 – 60 min más y mirad el tráfico (DGT o Google Maps) antes de salir.",
@@ -310,7 +311,7 @@ const TRIP_DATA = window.TRIP_DATA = {
       mapsUrl: mapsSearch(HOME_ADDRESS),
       roomType: "Airbnb · anfitrión: Andoni",
       mealPlan: "Check-out el martes 8 a las 11:00",
-      description: "La base de todo el viaje, a 7 minutos a pie del Casco Viejo, de modo que el sábado no hace falta el coche. Preguntad a Andoni si el garaje queda dentro de la Zona de Bajas Emisiones.",
+      description: "La base de todo el viaje, al lado de " + webLink("Obar Catracho", NEARBY_LANDMARK_URL) + " y a 7 minutos a pie del Casco Viejo, de modo que el sábado no hace falta el coche. Preguntad a Andoni si el garaje queda dentro de la Zona de Bajas Emisiones.",
       amenities: [
         "🚗 Garaje",
         "🚶 Casco Viejo a 7 min",
