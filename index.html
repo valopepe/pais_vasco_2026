@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>País Vasco 2026 - Puente de diciembre</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+  <!-- PWA Manifest & App Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="País Vasco">
+  <link rel="icon" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+</head>
+
+<body class="dark-theme">
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <svg class="logo-icon" viewBox="-44 -44 88 88" fill="currentColor" stroke="none" aria-hidden="true">
+          <g id="lauburuHead">
+            <path d="M0 0A20 20 0 0 1 40 0A10 10 0 0 1 20 0A10 10 0 0 0 0 0Z" />
+          </g>
+          <use href="#lauburuHead" transform="rotate(90)" />
+          <use href="#lauburuHead" transform="rotate(180)" />
+          <use href="#lauburuHead" transform="rotate(270)" />
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">País Vasco</span>
+          <span class="logo-subtitle">Diciembre 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-section="home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Inicio</span>
+      </button>
+      <button class="nav-btn" data-section="itinerary">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Itinerario</span>
+      </button>
+      <button class="nav-btn" data-section="fixed-schedules">
+        <span class="nav-icon">⏰</span>
+        <span class="nav-label">Horarios y Salidas</span>
+      </button>
+      <button class="nav-btn" data-section="accommodations">
+        <span class="nav-icon">🏨</span>
+        <span class="nav-label">Alojamiento</span>
+      </button>
+      <button class="nav-btn" data-section="weather">
+        <span class="nav-icon">🌤️</span>
+        <span class="nav-label">Meteorología</span>
+      </button>
+      <button class="nav-btn" data-section="gastronomy">
+        <span class="nav-icon">🍲</span>
+        <span class="nav-label">Gastronomía</span>
+      </button>
+      <button class="nav-btn" data-section="souvenirs">
+        <span class="nav-icon">🎁</span>
+        <span class="nav-label">Recuerdos</span>
+      </button>
+      <button class="nav-btn" data-section="logistics">
+        <span class="nav-icon">🚗</span>
+        <span class="nav-label">Logística</span>
+      </button>
+      <button class="nav-btn" data-section="apps">
+        <span class="nav-icon">📱</span>
+        <span class="nav-label">Aplicaciones</span>
+      </button>
+      <button class="nav-btn" data-section="tools">
+        <span class="nav-icon">🛠️</span>
+        <span class="nav-label">Herramientas</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="theme-toggle-container">
+        <span class="theme-label">Modo Claro</span>
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <p class="footer-credit">© 2026 País Vasco App</p>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12" stroke-linecap="round" />
+          <line x1="3" y1="6" x2="21" y2="6" stroke-linecap="round" />
+          <line x1="3" y1="18" x2="21" y2="18" stroke-linecap="round" />
+        </svg>
+      </button>
+      <h1 class="section-title" id="mainSectionTitle">Inicio</h1>
+
+      <!-- Global Search Container -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="globalSearchInput"
+            placeholder="Buscar en el viaje (restaurantes, parkings, lugares...)" autocomplete="off" />
+          <button id="clearSearchBtn" class="clear-search-btn" title="Limpiar búsqueda">&times;</button>
+        </div>
+        <div class="search-results-dropdown" id="searchResultsDropdown"></div>
+      </div>
+    </header>
+
+    <!-- Scrollable Content Window -->
+    <div class="content-body">
+
+      <!-- SECTION: HOME -->
+      <section class="content-section active" id="section-home">
+        <div class="hero-banner">
+          <img src="assets/images/gaztelugatxe.jpg" alt="San Juan de Gaztelugatxe" class="hero-img">
+          <span class="photo-credit">Foto: Diego Delso · CC BY-SA 4.0 · Wikimedia Commons</span>
+          <div class="hero-overlay">
+            <span class="hero-badge">Puente de diciembre · 4 – 8 dic</span>
+            <h2 class="hero-title">Bilbao — Zumaia — Donostia — Gaztelugatxe — Vitoria</h2>
+            <p class="hero-desc">Cinco días por la costa y las capitales vascas, con base en Bilbao y salida el viernes
+              a las 15:00.</p>
+            <div class="countdown-container" id="countdown">
+              <div class="countdown-item">
+                <span class="countdown-num" id="cd-days">--</span>
+                <span class="countdown-label">Días</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-num" id="cd-hours">--</span>
+                <span class="countdown-label">Horas</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-num" id="cd-mins">--</span>
+                <span class="countdown-label">Minutos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Overview Cards -->
+          <div class="card card-glass stats-card">
+            <h3 class="card-title">Resumen del Viaje</h3>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-value">5</span>
+                <span class="stat-label">Días</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value">4</span>
+                <span class="stat-label">Noches en Bilbao</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value">3</span>
+                <span class="stat-label">Territorios vascos</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value">≈1.600<sub>km</sub></span>
+                <span class="stat-label">En coche</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bookings Progress Card -->
+          <div class="card card-glass progress-card">
+            <h3 class="card-title">Antes de Salir</h3>
+            <p class="card-desc">Reservas y comprobaciones pendientes antes del viernes 4:</p>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="bookingProgressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text-container">
+              <span id="bookingProgressText">0 completados</span>
+              <button class="btn btn-secondary btn-sm" id="btnGoToLogistics">Ver la lista</button>
+            </div>
+          </div>
+
+          <!-- Next Destination card -->
+          <div class="card card-glass next-destination-card">
+            <h3 class="card-title">Inicio del Viaje</h3>
+            <div class="dest-info">
+              <span class="dest-icon">🚗</span>
+              <div>
+                <h4 class="dest-name" id="homeNextDestName">Vie 4: Santiago → Bilbao</h4>
+                <p class="dest-detail" id="homeNextDestDetail">Salida a las 15:00 y llegada sobre las 22:00 a <a
+                    href="https://www.google.com/maps/search/?api=1&query=Zamakola%20Kalea%2017%2C%20Bilbao"
+                    target="_blank" rel="noopener noreferrer" class="inline-link">Zamakola Kalea 17 ↗</a>.</p>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="btnStartItinerary">Ver el Itinerario</button>
+          </div>
+        </div>
+
+        <!-- Accommodations Overview Section on Home Screen -->
+        <div class="accommodations-home-section" style="margin-top: 2rem;">
+          <div style="display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">🏠 Alojamiento</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Una sola base para las 4 noches del viaje:</p>
+          </div>
+          <div class="cards-grid" id="homeAccommodationsGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: ITINERARY -->
+      <section class="content-section" id="section-itinerary">
+        <!-- Horizontal Day Selector Bar -->
+        <div class="day-selector-bar" id="daySelectorBar">
+          <!-- Dynamically populated Days buttons -->
+        </div>
+
+        <!-- Selected Day Main Container -->
+        <div class="day-detail-container" id="dayDetailContainer">
+          <!-- Dynamically Rendered Day Content goes here -->
+        </div>
+      </section>
+
+      <!-- SECTION: HORARIOS Y SALIDAS -->
+      <section class="content-section" id="section-fixed-schedules">
+        <div class="fixed-schedules-header-card">
+          <div class="fixed-header-top">
+            <div class="fixed-title-group">
+              <span class="fixed-header-icon">⏰</span>
+              <div>
+                <h2 class="fixed-header-title">Horarios y Salidas</h2>
+                <p class="fixed-header-subtitle">Tiempos en coche sin atascos y horas de salida aconsejadas, junto con
+                  las reservas que tienen hora.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="fixed-filter-tabs">
+            <button class="fixed-filter-btn active" data-filter="all">Todos (<span class="fixed-filter-count"></span>)</button>
+            <button class="fixed-filter-btn" data-filter="coche">🚗 Trayectos (<span class="fixed-filter-count"></span>)</button>
+            <button class="fixed-filter-btn" data-filter="reserva">🎟️ Reservas y horas límite (<span class="fixed-filter-count"></span>)</button>
+          </div>
+        </div>
+
+        <div id="fixedSchedulesGrid" class="fixed-cards-grid"></div>
+      </section>
+
+      <!-- SECTION: ACCOMMODATIONS -->
+      <section class="content-section" id="section-accommodations">
+        <div class="intro-card card card-glass">
+          <div class="intro-content">
+            <h2>🏨 Alojamiento (4 Noches)</h2>
+            <p>Una única base en Bilbao, con garaje y a 7 minutos a pie del Casco Viejo.</p>
+          </div>
+        </div>
+
+        <!-- Accommodations Summary Table Card -->
+        <div class="card card-glass" style="margin-bottom: 1.5rem;">
+          <h3 class="card-title">📋 Resumen de Noches</h3>
+          <div class="table-responsive">
+            <table class="bookings-table">
+              <thead>
+                <tr>
+                  <th>Noche</th>
+                  <th>Ciudad</th>
+                  <th>Alojamiento</th>
+                  <th>Notas</th>
+                  <th>Ubicación</th>
+                </tr>
+              </thead>
+              <tbody id="accommodationsTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="accommodationsSectionGrid">
+          <!-- Dynamically populated cards -->
+        </div>
+      </section>
+
+      <!-- SECTION: WEATHER / METEOROLOGÍA -->
+      <section class="content-section" id="section-weather">
+        <div class="intro-card card card-glass">
+          <div class="intro-content"
+            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2>🌤️ Previsión Meteorológica a 3 Días</h2>
+              <p>Previsión para cada destino del viaje, a partir de hoy. Se actualiza automáticamente cada 30 minutos,
+                así que empezará a ser útil en los días previos a la salida.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+              <button class="btn btn-secondary btn-sm" id="btnRefreshWeather" style="gap: 0.35rem;">
+                🔄 Actualizar Ahora
+              </button>
+              <span style="font-size: 0.75rem; color: var(--text-muted);" id="weatherLastUpdatedText">Cargando
+                datos...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-bar" id="weatherFilterBar">
+          <button class="filter-btn weather-filter-btn active" data-weather-filter="all">Todos los Destinos</button>
+          <button class="filter-btn weather-filter-btn" data-weather-filter="ciudades">Ciudades</button>
+          <button class="filter-btn weather-filter-btn" data-weather-filter="costa">Costa</button>
+          <button class="filter-btn weather-filter-btn" data-weather-filter="interior">Plan B</button>
+        </div>
+
+        <div class="cards-grid" id="weatherGrid">
+          <!-- Dynamically populated Weather Cards with 3-day forecast -->
+        </div>
+      </section>
+
+      <!-- SECTION: GASTRONOMY -->
+      <section class="content-section" id="section-gastronomy">
+        <div class="intro-card card card-glass">
+          <div class="intro-content">
+            <h2>Comer Vegetariano en Euskadi</h2>
+            <p>Sitios vegetarianos y veganos en cada ciudad, junto con los platos y bebidas típicos. Confirmad horarios
+              antes de ir: cambian a menudo y en puente pueden variar.</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="bilbao">🌱 Bilbao</button>
+          <button class="filter-btn" data-filter="donostia">🌱 Donostia</button>
+          <button class="filter-btn" data-filter="vitoria">🌱 Vitoria-Gasteiz</button>
+          <button class="filter-btn" data-filter="traditional">Tradicional</button>
+          <button class="filter-btn" data-filter="drinks">Bebidas y dulces</button>
+        </div>
+
+        <!-- VEGETARIAN BAR TIPS -->
+        <div class="card card-glass veg-card">
+          <div class="veg-card-header">
+            <span style="font-size: 1.8rem;">🌱</span>
+            <div>
+              <h3 class="veg-card-title">Truco en las barras de pintxos</h3>
+              <p class="veg-card-subtitle">Qué buscar en la barra y qué preguntar siempre antes de pedir.</p>
+            </div>
+          </div>
+
+          <div class="veg-card-grid">
+            <div class="veg-card-box">
+              <h4>✅ Buscad</h4>
+              <p>Tortilla, setas, pimientos rellenos de verdura, guindillas o queso Idiazabal.</p>
+            </div>
+            <div class="veg-card-box">
+              <h4>❓ Preguntad si llevan</h4>
+              <p>Anchoa, bonito o caldo de pescado.</p>
+            </div>
+            <div class="veg-card-box">
+              <h4>⚠️ Ojo</h4>
+              <p>La gilda lleva anchoa, y el Idiazabal se elabora con cuajo animal: tenedlo en cuenta si sois estrictos.
+              </p>
+            </div>
+            <div class="veg-card-box">
+              <h4>🗣️ Frase clave</h4>
+              <p><strong>«Ba al duzue aukera begetarianorik?»</strong><br>¿Tenéis alguna opción vegetariana?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="gastronomyGrid">
+          <!-- Dynamically populated cards -->
+        </div>
+      </section>
+
+      <!-- SECTION: SOUVENIRS -->
+      <section class="content-section" id="section-souvenirs">
+        <div class="intro-card card card-glass">
+          <div class="intro-content">
+            <h2>Recuerdos</h2>
+            <p>Productos y detalles típicos para llevar a casa. Con el coche no hay límite de equipaje, así que el
+              Mercado de la Ribera, el sábado por la mañana, es un buen sitio para empezar.</p>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="souvenirsGrid">
+          <!-- Dynamically populated cards -->
+        </div>
+      </section>
+
+      <!-- SECTION: LOGISTICS -->
+      <section class="content-section" id="section-logistics">
+        <div class="logistics-container">
+
+          <!-- Critical Bookings Card -->
+          <div class="card card-glass">
+            <h2 class="section-subtitle">📋 Reservas</h2>
+            <p class="card-desc">Marcad cada reserva cuando esté hecha. El progreso se actualiza en la pantalla de
+              inicio.</p>
+            <div class="table-responsive">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>Día</th>
+                    <th>Elemento</th>
+                    <th>Hora</th>
+                    <th>Precio</th>
+                    <th>Enlace</th>
+                    <th class="text-center">Hecho</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pre-departure checks -->
+          <div class="card card-glass">
+            <h2 class="section-subtitle">✅ Comprobaciones antes de salir</h2>
+            <div class="checks-list" id="checksList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Driving rules and parking -->
+          <div class="card card-glass">
+            <h2 class="section-subtitle">🚗 Conducción y Normas</h2>
+            <ul class="bullet-list" id="drivingRulesList">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- Recommended Parkings Card -->
+          <div class="card card-glass">
+            <h2 class="section-subtitle">🅿️ Dónde Aparcar</h2>
+            <p class="card-desc">Puntos clave de cada etapa, con enlace directo a Google Maps:</p>
+            <div class="table-responsive">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>Día</th>
+                    <th>Aparcamiento / Punto</th>
+                    <th>Ubicación</th>
+                    <th>Notas</th>
+                    <th>Mapa</th>
+                  </tr>
+                </thead>
+                <tbody id="parkingsTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Packing & Layers -->
+          <div class="card card-glass">
+            <h2 class="section-subtitle">🧥 Clima y Equipaje</h2>
+            <div class="packing-grid">
+              <div class="pack-box">
+                <div class="pack-icon">🌧️</div>
+                <h4>Chubasquero</h4>
+                <p>En diciembre llueve a menudo y hace entre 6 y 12 °C.</p>
+              </div>
+              <div class="pack-box">
+                <div class="pack-icon">🥾</div>
+                <h4>Calzado que agarre</h4>
+                <p>El flysch y Gaztelugatxe resbalan.</p>
+              </div>
+              <div class="pack-box">
+                <div class="pack-icon">🧥</div>
+                <h4>Capas de abrigo</h4>
+                <p>Para el viento de la costa y el frío de Vitoria al anochecer.</p>
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <strong>Luz:</strong> anochece sobre las 17:35. Las visitas de naturaleza van siempre por la mañana.
+            </div>
+          </div>
+
+          <!-- Other logistics -->
+          <div class="grid-2col">
+            <div class="card card-glass">
+              <h3 class="card-title">📅 Qué abre en el puente</h3>
+              <p>El lunes 7 <strong>no es festivo</strong> en Euskadi: los comercios abren, pero algunos museos y
+                restaurantes cierran los lunes. El Guggenheim, que suele cerrar ese día, abre de forma excepcional este
+                lunes 7.</p>
+            </div>
+            <div class="card card-glass">
+              <h3 class="card-title">🌊 Mareas en Zumaia</h3>
+              <p>Mirad la tabla del domingo 6. Con <strong>marea baja</strong> se ve la rasa mareal del flysch al
+                completo. Si coincide por la mañana, reservad para ese momento la bajada a la playa.</p>
+            </div>
+          </div>
+
+          <!-- Photo credits -->
+          <div class="card card-glass">
+            <h3 class="card-title">📷 Créditos de las fotografías</h3>
+            <ul class="credits-list" id="photoCreditsList">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION: APPS -->
+      <section class="content-section" id="section-apps">
+        <div class="intro-card card card-glass">
+          <div class="intro-content">
+            <h2>Aplicaciones Móviles Recomendadas</h2>
+            <p>Descargadlas antes de salir. Os ayudarán con el tráfico, los aparcamientos, el tiempo en la costa y los
+              sitios donde comer.</p>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="appsGrid">
+          <!-- Dynamically populated apps -->
+        </div>
+      </section>
+
+      <!-- SECTION: TOOLS -->
+      <section class="content-section" id="section-tools">
+        <div class="grid-2col">
+
+          <!-- Quick links -->
+          <div class="card card-glass">
+            <h2 class="card-title">🔗 Enlaces Rápidos</h2>
+            <p class="card-desc">Reservas, tiempo, mareas y tráfico. En caso de emergencia, llamad al <a href="tel:112"
+                class="inline-link">112</a>.</p>
+            <div class="quick-links-grid" id="quickLinksGrid">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Translation Cheat Sheet -->
+          <div class="card card-glass">
+            <h2 class="card-title">🗣️ Vocabulario Útil en Euskera</h2>
+            <div class="translation-list">
+              <div class="trans-item"><span class="eus-word">Kaixo</span><span class="esp-word">Hola</span></div>
+              <div class="trans-item"><span class="eus-word">Egun on</span><span class="esp-word">Buenos días</span></div>
+              <div class="trans-item"><span class="eus-word">Agur</span><span class="esp-word">Adiós</span></div>
+              <div class="trans-item"><span class="eus-word">Eskerrik asko</span><span class="esp-word">Muchas gracias</span></div>
+              <div class="trans-item"><span class="eus-word">Mesedez</span><span class="esp-word">Por favor</span></div>
+              <div class="trans-item"><span class="eus-word">Topa!</span><span class="esp-word">¡Salud!</span></div>
+              <div class="trans-item"><span class="eus-word">Kontua, mesedez</span><span class="esp-word">La cuenta, por favor</span></div>
+              <div class="trans-item"><span class="eus-word">Barazkijalea naiz</span><span class="esp-word">Soy vegetariano/a</span></div>
+              <div class="trans-item"><span class="eus-word">Irteera / Sarrera</span><span class="esp-word">Salida / Entrada</span></div>
+              <div class="trans-item"><span class="eus-word">Itxita / Irekita</span><span class="esp-word">Cerrado / Abierto</span></div>
+            </div>
+          </div>
+
+          <!-- Online Translator Card -->
+          <div class="card card-glass translator-card" style="grid-column: 1 / -1; margin-top: 0.5rem;">
+            <h2 class="card-title">🌐 Traductor (Euskera ⇄ Español)</h2>
+
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+              Casi todos los carteles están también en castellano, pero aquí podéis consultar cualquier palabra. El
+              traductor en línea funciona peor con el euskera: si no encuentra algo, os dará un enlace a Google
+              Translate.
+            </p>
+
+            <!-- Camera Translation Action Box -->
+            <div class="camera-box">
+              <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 240px;">
+                <span style="font-size: 2rem;">📷</span>
+                <div>
+                  <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin: 0;">Traducir con la
+                    cámara</h4>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.2rem 0 0 0;">Abre Google Translate
+                    para traducir carteles y cartas desde una foto.</p>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" id="btnLaunchGoogleLens">🔍 Abrir Google Translate ↗</button>
+            </div>
+
+            <div class="translator-grid">
+              <!-- Source Input -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                  <label for="transSourceText" id="transSourceLangLabel"
+                    style="font-weight: 700; font-size: 0.85rem; color: var(--primary);">Euskera</label>
+                  <button class="btn btn-secondary btn-sm" id="btnClearTrans"
+                    style="padding: 2px 8px; font-size: 0.75rem;">Limpiar</button>
+                </div>
+                <textarea id="transSourceText" placeholder="Escribe o pega texto en euskera... (ej. Non dago komuna?)"
+                  rows="4"
+                  style="width: 100%; padding: 0.75rem; border-radius: var(--border-radius-sm); border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-main); font-family: inherit; font-size: 0.9rem; resize: vertical; outline: none;"></textarea>
+              </div>
+
+              <!-- Switch Direction Button -->
+              <div class="translator-swap">
+                <button class="btn btn-secondary" id="btnSwapLang" title="Cambiar idioma (Euskera ⇄ Español)"
+                  aria-label="Cambiar idioma"
+                  style="border-radius: 50%; width: 44px; height: 44px; padding: 0; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                  🔄
+                </button>
+              </div>
+
+              <!-- Target Output -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                  <span id="transTargetLangLabel"
+                    style="font-weight: 700; font-size: 0.85rem; color: var(--accent);">🇪🇸 Español</span>
+                  <button class="btn btn-secondary btn-sm" id="btnCopyTrans"
+                    style="padding: 2px 8px; font-size: 0.75rem;">📋 Copiar</button>
+                </div>
+                <div id="transTargetText" aria-live="polite"
+                  style="min-height: 102px; padding: 0.75rem; border-radius: var(--border-radius-sm); border: 1px solid var(--border-card); background: rgba(var(--primary-rgb), 0.05); color: var(--text-main); font-size: 0.95rem; line-height: 1.4; word-break: break-word;">
+                  <span style="color: var(--text-muted); font-style: italic;">La traducción aparecerá aquí
+                    automáticamente...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Phrase Shortcuts -->
+            <div style="margin-top: 1.25rem; border-top: 1px solid var(--border-card); padding-top: 0.85rem;">
+              <span
+                style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">⚡
+                Frases rápidas de ejemplo:</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;" id="transQuickPhrases">
+                <button class="badge badge-primary trans-chip" data-text="Non dago komuna?"
+                  style="cursor:pointer; border:none; padding: 0.35rem 0.75rem;">🚽 Non dago komuna?</button>
+                <button class="badge badge-primary trans-chip" data-text="Ba al duzue aukera begetarianorik?"
+                  style="cursor:pointer; border:none; padding: 0.35rem 0.75rem;">🥗 Aukera begetarianorik?</button>
+                <button class="badge badge-primary trans-chip" data-text="Haragirik ez dut jaten, ezta arrainik ere"
+                  style="cursor:pointer; border:none; padding: 0.35rem 0.75rem;">🌱 Haragirik ez dut jaten</button>
+                <button class="badge badge-primary trans-chip" data-text="Zenbat da?"
+                  style="cursor:pointer; border:none; padding: 0.35rem 0.75rem;">💳 Zenbat da?</button>
+                <button class="badge badge-primary trans-chip" data-text="Eskerrik asko"
+                  style="cursor:pointer; border:none; padding: 0.35rem 0.75rem;">🙏 Eskerrik asko</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Load Data and Main JS logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered successfully:', reg.scope))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+
+</html>
