@@ -69,6 +69,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const appsGrid = document.getElementById("appsGrid");
 
   const STORAGE_PREFIX = "paisvasco-"; // Shared origin with the other trip apps
+
+  // Reservas y comprobaciones se guardan por id (antes, por posición). Al cambiar el plan (v2),
+  // se conservan solo las marcas cuyo contenido no ha cambiado; el resto se vuelve a marcar.
+  (function migrateCheckmarks() {
+    try {
+      const flag = `${STORAGE_PREFIX}checks-by-id-v2`;
+      if (localStorage.getItem(flag)) return;
+      const keep = {
+        "booking-3": "booking-gaztelugatxe",
+        "booking-4": "booking-catedral",
+        "check-1": "check-zbe",
+        "check-2": "check-garaje-zbe",
+        "check-3": "check-avisar-andoni"
+      };
+      Object.entries(keep).forEach(([oldKey, newKey]) => {
+        if (localStorage.getItem(`${STORAGE_PREFIX}${oldKey}`) === "true") {
+          localStorage.setItem(`${STORAGE_PREFIX}${newKey}`, "true");
+        }
+      });
+      for (let i = 0; i < 10; i++) {
+        localStorage.removeItem(`${STORAGE_PREFIX}booking-${i}`);
+        localStorage.removeItem(`${STORAGE_PREFIX}check-${i}`);
+      }
+      localStorage.setItem(flag, "1");
+    } catch (e) { /* sin almacenamiento: no hay nada que migrar */ }
+  })();
+  const bookingKey = b => `${STORAGE_PREFIX}booking-${b.id}`;
+  const checkKey = c => `${STORAGE_PREFIX}check-${c.id}`;
+
   let activeDayNum = 1;
   let globalCachedWeatherData = {};
   let lastWeatherFetchTime = null;
@@ -932,7 +961,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bookingsTableBody.innerHTML = "";
     TRIP_DATA.generalRules.bookings.forEach((booking, idx) => {
       const tr = document.createElement("tr");
-      const isChecked = localStorage.getItem(`${STORAGE_PREFIX}booking-${idx}`) === "true";
+      const isChecked = localStorage.getItem(bookingKey(booking)) === "true";
       const placeMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(booking.place)}`;
       const linkHTML = booking.url
         ? `<a href="${booking.url}" target="_blank" rel="noopener noreferrer" class="badge ${isChecked ? 'badge-primary' : 'badge-accent'}">${isChecked ? '✓ Reservado' : 'Reservar ↗'}</a>`
@@ -956,7 +985,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hook up checkboxes listeners
     document.querySelectorAll(".booking-checkbox").forEach(chk => {
       chk.addEventListener("change", () => {
-        localStorage.setItem(`${STORAGE_PREFIX}booking-${chk.getAttribute("data-index")}`, chk.checked);
+        localStorage.setItem(bookingKey(TRIP_DATA.generalRules.bookings[chk.getAttribute("data-index")]), chk.checked);
         setupLogistics(); // Refresh table badge
       });
     });
@@ -965,19 +994,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const checksList = document.getElementById("checksList");
     checksList.innerHTML = "";
     TRIP_DATA.generalRules.checks.forEach((check, idx) => {
-      const isChecked = localStorage.getItem(`${STORAGE_PREFIX}check-${idx}`) === "true";
+      const isChecked = localStorage.getItem(checkKey(check)) === "true";
       const label = document.createElement("label");
       label.className = "check-item";
       label.innerHTML = `
         <input type="checkbox" class="custom-checkbox check-checkbox" data-index="${idx}" ${isChecked ? "checked" : ""}>
-        <span>${check}</span>
+        <span>${check.text}</span>
       `;
       checksList.appendChild(label);
     });
 
     document.querySelectorAll(".check-checkbox").forEach(chk => {
       chk.addEventListener("change", () => {
-        localStorage.setItem(`${STORAGE_PREFIX}check-${chk.getAttribute("data-index")}`, chk.checked);
+        localStorage.setItem(checkKey(TRIP_DATA.generalRules.checks[chk.getAttribute("data-index")]), chk.checked);
         updateBookingProgress();
       });
     });
@@ -988,8 +1017,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateBookingProgress() {
     const { bookings, checks } = TRIP_DATA.generalRules;
     const total = bookings.length + checks.length;
-    const doneBookings = bookings.filter((_, i) => localStorage.getItem(`${STORAGE_PREFIX}booking-${i}`) === "true").length;
-    const doneChecks = checks.filter((_, i) => localStorage.getItem(`${STORAGE_PREFIX}check-${i}`) === "true").length;
+    const doneBookings = bookings.filter(b => localStorage.getItem(bookingKey(b)) === "true").length;
+    const doneChecks = checks.filter(c => localStorage.getItem(checkKey(c)) === "true").length;
     const done = doneBookings + doneChecks;
 
     // Update Home Widgets

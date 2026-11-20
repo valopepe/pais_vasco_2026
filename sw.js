@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "pais-vasco-";
-const CACHE_NAME = `${CACHE_PREFIX}v1`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 const ASSETS = [
   "./",
   "index.html",
@@ -9,6 +9,8 @@ const ASSETS = [
   "manifest.json",
   "assets/images/icon-192.png",
   "assets/images/icon-512.png",
+  "assets/images/apple-touch-icon.png",
+  "assets/images/ikurrina-logo.png",
   "assets/images/bilbao_ria.jpg",
   "assets/images/bilbao_guggenheim.jpg",
   "assets/images/zumaia_flysch.jpg",

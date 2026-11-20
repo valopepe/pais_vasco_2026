@@ -173,11 +173,20 @@ a:hover {
   gap: 0.75rem;
 }
 
-.logo-icon {
-  width: 2rem;
-  height: 2rem;
-  color: var(--primary);
-  filter: drop-shadow(0 0 6px rgba(var(--primary-rgb), 0.4));
+.logo-ikurrina {
+  height: 2.25rem;
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+/* Ikurriña en la barra superior: solo en móvil, donde la barra lateral va oculta */
+.topbar-ikurrina {
+  display: none;
+  height: 1.6rem;
+  width: auto;
+  flex-shrink: 0;
+  margin: 0 0.5rem 0 0.4rem;
 }
 
 .logo-text {
@@ -1476,6 +1485,10 @@ mark.search-highlight {
 
   .menu-toggle {
     display: flex;
+  }
+
+  .topbar-ikurrina {
+    display: block;
   }
 
   .content-body {
